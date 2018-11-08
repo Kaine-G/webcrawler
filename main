@@ -1,0 +1,14 @@
+import requests
+from bs4 import BeautifulSoup
+
+
+def all_players():
+    url = 'https://www.basketball-reference.com/leagues/NBA_2019_per_game.html'
+    source_code = requests.get(url)
+    plain_text = source_code.text
+    soup = BeautifulSoup([plain_text], "html.parser")
+    for link in soup.findAll('a', {'td class': 'left '}):
+        href = link.get('href')
+        print(href)
+        
+all_players()
